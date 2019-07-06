@@ -1,4 +1,4 @@
-#include "pch.h"
+п»ї#include "pch.h"
 #include "xtea3.h"
 
 #include <stdio.h>
@@ -113,13 +113,13 @@ uint8_t *xtea3::data_crypt(const uint8_t *data, const uint32_t key[8], uint32_t 
 {
 	uint32_t size_crypt_tmp = size;
 
-	//Выровнить размер буфера до 16-ти (для этого алгоритма)
+	//Р’С‹СЂРѕРІРЅРёС‚СЊ СЂР°Р·РјРµСЂ Р±СѓС„РµСЂР° РґРѕ 16-С‚Рё (РґР»СЏ СЌС‚РѕРіРѕ Р°Р»РіРѕСЂРёС‚РјР°)
 	while ((size_crypt_tmp % 16) != 0)
 	{
 		size_crypt_tmp++;
 	}
 
-	//Выделить память под выровненный буфер (Плюс восемь байт, что-бы был размер зашифрованных данных и размер оригинальных данных, всё это будет хранится в зашифрованных данных)
+	//Р’С‹РґРµР»РёС‚СЊ РїР°РјСЏС‚СЊ РїРѕРґ РІС‹СЂРѕРІРЅРµРЅРЅС‹Р№ Р±СѓС„РµСЂ (РџР»СЋСЃ РІРѕСЃРµРјСЊ Р±Р°Р№С‚, С‡С‚Рѕ-Р±С‹ Р±С‹Р» СЂР°Р·РјРµСЂ Р·Р°С€РёС„СЂРѕРІР°РЅРЅС‹С… РґР°РЅРЅС‹С… Рё СЂР°Р·РјРµСЂ РѕСЂРёРіРёРЅР°Р»СЊРЅС‹С… РґР°РЅРЅС‹С…, РІСЃС‘ СЌС‚Рѕ Р±СѓРґРµС‚ С…СЂР°РЅРёС‚СЃСЏ РІ Р·Р°С€РёС„СЂРѕРІР°РЅРЅС‹С… РґР°РЅРЅС‹С…)
 	data_ptr = NULL;
 	data_ptr = (uint8_t*) malloc(size_crypt_tmp + 8);
 	if (data_ptr == NULL)
@@ -128,7 +128,7 @@ uint8_t *xtea3::data_crypt(const uint8_t *data, const uint32_t key[8], uint32_t 
 		return NULL;
 	}
 
-	//Положим в получившийся буфер размер криптованных данных и размер оригинала
+	//РџРѕР»РѕР¶РёРј РІ РїРѕР»СѓС‡РёРІС€РёР№СЃСЏ Р±СѓС„РµСЂ СЂР°Р·РјРµСЂ РєСЂРёРїС‚РѕРІР°РЅРЅС‹С… РґР°РЅРЅС‹С… Рё СЂР°Р·РјРµСЂ РѕСЂРёРіРёРЅР°Р»Р°
 	size_crypt = size_crypt_tmp + 8;
 	size_decrypt_data = size;
 
@@ -137,21 +137,21 @@ uint8_t *xtea3::data_crypt(const uint8_t *data, const uint32_t key[8], uint32_t 
 
 	memcpy(data_ptr + 8, data, size);
 
-	//Зашифруем данные
+	//Р—Р°С€РёС„СЂСѓРµРј РґР°РЅРЅС‹Рµ
 	xtea3_data_crypt(data_ptr + 8, size_crypt - 8, true, key);
 
 	return data_ptr;
 }
 uint8_t *xtea3:: data_decrypt(const uint8_t *data, const uint32_t key[8], uint32_t size)
 {
-	//Получим размер криптованных данных и размер оригинала
+	//РџРѕР»СѓС‡РёРј СЂР°Р·РјРµСЂ РєСЂРёРїС‚РѕРІР°РЅРЅС‹С… РґР°РЅРЅС‹С… Рё СЂР°Р·РјРµСЂ РѕСЂРёРіРёРЅР°Р»Р°
 	memcpy((char*)&size_crypt, data,  4);
 	memcpy((char*)&size_decrypt_data, data + 4, 4);
 
 
 	if (size_crypt <= size)
 	{ 
-	//Выделить память для расшифрованных данных
+	//Р’С‹РґРµР»РёС‚СЊ РїР°РјСЏС‚СЊ РґР»СЏ СЂР°СЃС€РёС„СЂРѕРІР°РЅРЅС‹С… РґР°РЅРЅС‹С…
 	data_ptr = NULL;
 	data_ptr = (uint8_t*)malloc(size_crypt);
 	if (data_ptr == NULL)
@@ -162,7 +162,7 @@ uint8_t *xtea3:: data_decrypt(const uint8_t *data, const uint32_t key[8], uint32
 
 	memcpy(data_ptr, data + 8, size_crypt - 8);
 
-	//Расшифруем данные
+	//Р Р°СЃС€РёС„СЂСѓРµРј РґР°РЅРЅС‹Рµ
 	xtea3_data_crypt(data_ptr, size_crypt - 8, false, key);
 	}
 	else
