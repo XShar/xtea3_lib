@@ -47,27 +47,27 @@
  
  3)У xtea3 есть следующие методы:
  
- **- uint8_t *data_crypt(const uint8_t *data, const uint32_t key[8], uint32_t size);**
+ ** - uint8_t *data_crypt(const uint8_t *data, const uint32_t key[8], uint32_t size); **
  
  Метод зашифрует данные, указателя uint8_t *data, ключём uint32_t key[8] и размером uint32_t size.
  
  Возвращает указатель на буфер пошифрованных данных (В случае ошибки, возратит NULL).
  
- **- uint8_t *data_decrypt(const uint8_t *data, const uint32_t key[8], uint32_t size);**
+ ** - uint8_t *data_decrypt(const uint8_t *data, const uint32_t key[8], uint32_t size); **
  
  Метод расшифрует данные, указателя uint8_t *data, ключём uint32_t key[8] и размером uint32_t size.
  
  Возвращает указатель на буфер расшифрованных данных (В случае ошибки, возратит NULL).
  
- **- uint32_t get_decrypt_size(void);**
+ ** - uint32_t get_decrypt_size(void); **
  
  Метод вернет размер буфера зашифрованных данных.
  
- **- uint32_t get_crypt_size(void);**
+ ** - uint32_t get_crypt_size(void); **
  
  Метод вернет размер буфера расшифрованных данных.
  
- **- void free_ptr(uint8_t *ptr);**
+ ** - void free_ptr(uint8_t *ptr); **
  
  Освободит память по указателю ptr.
  
